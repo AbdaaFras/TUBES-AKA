@@ -1,0 +1,75 @@
+import time
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Data dummy: Sistem rekomendasi film genre komedi
+movies = [
+    {"title": "Movie 1", "genre": "Comedy"},
+    {"title": "Movie 2", "genre": "Action"},
+    {"title": "Movie 3", "genre": "Comedy"},
+    {"title": "Movie 4", "genre": "Drama"},
+    {"title": "Movie 6", "genre": "Comedy"},
+    {"title": "Movie 7", "genre": "Horor"},
+    {"title": "Movie 8", "genre": "Romance"},
+    {"title": "Movie 9", "genre": "Sci Fi"},
+    {"title": "Movie 10", "genre": "Comedy"},
+]
+
+def recursive_recommendation(movies, genre, index=0, result=None):
+    if result is None:
+        result = []
+    if index >= len(movies):
+        return result
+    if movies[index]["genre"] == genre:
+        result.append(movies[index])
+    return recursive_recommendation(movies, genre, index + 1, result)
+
+def iterative_recommendation(movies, genre):
+    result = []
+    for movie in movies:
+        if movie["genre"] == genre:
+            result.append(movie)
+    return result
+
+# Ukur waktu eksekusi untuk rekursif dan iteratif
+input_sizes = [5, 10, 15, 20,]  # Jumlah film untuk pengujian
+recursive_times = []
+iterative_times = []
+
+# Perluas data dummy untuk pengujian skala besar
+movies_extended = movies * 5
+
+for n in input_sizes:
+    test_data = movies_extended[:n]
+
+    # Rekursif
+    start = time.time()
+    recursive_recommendation(test_data, "Comedy")
+    end = time.time()
+    recursive_times.append(end - start)
+
+    # Iteratif
+    start = time.time()
+    iterative_recommendation(test_data, "Comedy")
+    end = time.time()
+    iterative_times.append(end - start)
+
+# Tabel hasil dalam format DataFrame
+results = pd.DataFrame({
+    "Input Size (n)": input_sizes,
+    "Recursive Time (s)": recursive_times,
+    "Iterative Time (s)": iterative_times
+})
+print("\nHasil Perbandingan:")
+print(results.to_markdown(index=False))
+
+# Plot diagram garis
+plt.figure(figsize=(10, 6))
+plt.plot(input_sizes, recursive_times, label="Recursive", marker="o", color="blue")
+plt.plot(input_sizes, iterative_times, label="Iterative", marker="o", color="orange")
+plt.title("Sistem Rekomendasi Film Netflix Genre Comedy")
+plt.xlabel("Jumlah Film (n)")
+plt.ylabel("Waktu Eksekusi (detik)")
+plt.legend()
+plt.grid(True)
+plt.show()
