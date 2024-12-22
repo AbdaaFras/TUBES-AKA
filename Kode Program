@@ -8,11 +8,11 @@ movies = [
     {"title": "Movie 2", "genre": "Action"},
     {"title": "Movie 3", "genre": "Comedy"},
     {"title": "Movie 4", "genre": "Drama"},
-    {"title": "Movie 6", "genre": "Comedy"},
-    {"title": "Movie 7", "genre": "Horor"},
-    {"title": "Movie 8", "genre": "Romance"},
-    {"title": "Movie 9", "genre": "Sci Fi"},
-    {"title": "Movie 10", "genre": "Comedy"},
+    {"title": "Movie 5", "genre": "Comedy"},
+    {"title": "Movie 6", "genre": "Horor"},
+    {"title": "Movie 7", "genre": "Romance"},
+    {"title": "Movie 8", "genre": "Sci Fi"},
+    {"title": "Movie 9", "genre": "Comedy"},
 ]
 
 def recursive_recommendation(movies, genre, index=0, result=None):
